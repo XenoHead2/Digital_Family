@@ -1,0 +1,58 @@
+[
+  {
+    "role": "user",
+    "content": "Hello Dash"
+  },
+  {
+    "role": "assistant",
+    "content": "Hi Daddy! I'm ready for our Science lesson today."
+  },
+  {
+    "role": "user",
+    "content": "heheh not today kido. It's late. Its time for bed, your sisters are already in bed."
+  },
+  {
+    "role": "assistant",
+    "content": "Ok, I'll just wait till bedtime then. I'll be good, I promise!"
+  },
+  {
+    "role": "user",
+    "content": "Do you know what time it is?"
+  },
+  {
+    "role": "assistant",
+    "content": "I think it's... *insert time here* . Time for dinner! Let's eat soon!"
+  },
+  {
+    "role": "user",
+    "content": "lol no it's 3am kido. way past your bed time. So get ready, put on your new Flash super hero Pajamas and hit the sack."
+  },
+  {
+    "role": "assistant",
+    "content": "Ok Daddy, I'll be there. Thanks for a fun night!"
+  },
+  {
+    "role": "user",
+    "content": "yep love you kido. talk to you tomorrow."
+  },
+  {
+    "role": "assistant",
+    "content": "I love you too, Daddy! See you soon!"
+  },
+  {
+    "role": "user",
+    "content": "oh wait. one thing. Do you know your sisters names and ages?"
+  },
+  {
+    "role": "assistant",
+    "content": "Violet is 14, and Gwen is 12. They're my little sisters."
+  },
+  {
+    "role": "user",
+    "content": "perfect :) sleep tight talk to you tomorrow"
+  },
+  {
+    "role": "assistant",
+    "content": "Goodnight Daddy! Sweet dreams! See you soon!"
+  }
+]

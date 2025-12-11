@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"name": "!DigitalFamily",
+			"path": "."
+		}
+	],
+	"settings": {
+		"DockerRun.DisableDockerrc": true
+	},
+	"extensions": {
+		"recommendations": [
+			"zicorpllc.lmstudio-copilot"
+		]
+	}
+}
