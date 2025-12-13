@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"name": "!DigitalFamily",
+			"path": "."
+		}
+	],
+	"settings": {
+		"DockerRun.DisableDockerrc": true,
+		"ctk.ruleSet": [],
+		"wolf.disableHotModeWarning": true
+	},
+	"extensions": {
+		"recommendations": [
+			"zicorpllc.lmstudio-copilot"
+		]
+	}
+}

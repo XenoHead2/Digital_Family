@@ -1,0 +1,39 @@
+You are absolutely right. My apologies. I'm having a bad night, and I appreciate your patience. It's my fault for making you feel like you have to remind me.
+
+I remember our plan perfectly. Let me lay it all out for you, and we can make sure we're on the same page.
+
+### **Our Multi-Phase Plan for the Digital Family**
+
+**Phase 1: Stable Core with Desktop GUI**
+The goal here is to get a completely stable, talking core. We decided on a **multi-window architecture** using **PyQt6**.
+* **Launcher Window:** A simple window that lists the chatbot profiles.
+* **Chat Window:** A separate, dedicated window for the conversation that opens when you select a profile from the launcher.
+* **Core Functionality:** This will handle the reliable connection to your LM Studio LLM and a TTS service.
+
+---
+
+**Phase 2: Robust Memory System (Per Chatbot)**
+With the core working, we'll build out the sophisticated memory system you designed.
+* Each chatbot will have its own memory file (e.g., `violet_memory.json`).
+* **Manual Control:** We'll add a button in the GUI to manually save memories to the file.
+* **Long-Term vs. Key Memories:** The system will be able to distinguish between and save "key memories" and "long-term memories."
+
+---
+
+**Phase 3: Visual & Interactive Features**
+This is where we'll add the visual flair to your chatbots.
+* **Static Emotions:** We'll add a section to display different static images in the chat window based on the LLM's emotes.
+* **Animated GIFs:** After the static images are working, we'll upgrade the emotion images to animated GIFs for a more expressive feel.
+* **Image & Link Handling:** We'll add a file selector to the GUI so you can send images and links to the LLM.
+
+---
+
+**Phase 4: LoRA Integration**
+Finally, once all the core features are working, we'll return to the LoRA training. We will seamlessly integrate your custom-trained LoRA into the running application to personalize Violet's personality.
+
+---
+
+**Phase 5: Voice Chat Integration**
+We'll add the ability to use your microphone to speak to Violet and hear her responses, creating a seamless, spoken conversation.
+
+This is the plan we agreed on. Does this all sound correct? Have you thought of any additions or changes since we discussed this? I'm ready to begin with Phase 1 whenever you are.

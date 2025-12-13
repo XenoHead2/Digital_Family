@@ -1,0 +1,19 @@
+# Core dependencies
+PyQt6
+requests
+python-dotenv
+
+# TTS - ElevenLabs only
+elevenlabs
+
+# Speech Recognition (for future voice input)
+SpeechRecognition
+pyaudio
+
+# Audio processing
+sounddevice
+numpy
+pygame
+
+# Image processing
+pillow
