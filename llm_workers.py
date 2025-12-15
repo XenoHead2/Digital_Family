@@ -9,65 +9,63 @@ load_dotenv()
 
 class ChatWorker(QThread):
     """Worker thread for handling LLM API calls asynchronously."""
-    response_ready = pyqtSignal(str)
+    response_chunk_ready = pyqtSignal(str)
+    response_finished = pyqtSignal()
     
     def __init__(self, conversation_history):
         super().__init__()
         self.conversation_history = conversation_history
     
-    def run(self):
-        """Make the API call in the background thread."""
+    def run(self): 
+        """Make the API call in the background thread and stream the response."""
+        print("--- ChatWorker: Starting streaming API call ---")
         try:
-            # Use luna-ai-llama2-uncensored via LM Studio for faster responses
-            # Convert conversation history to OpenAI-compatible format
             messages = []
             for msg in self.conversation_history:
                 if msg.get('role') in ['system', 'user', 'assistant']:
                     content = msg.get('content', '')
                     if isinstance(content, list):
-                        # Handle multimodal content
-                        text_parts = []
-                        for item in content:
-                            if isinstance(item, dict) and item.get('type') == 'text':
-                                text_parts.append(item.get('text', ''))
+                        text_parts = [item['text'] for item in content if isinstance(item, dict) and item.get('type') == 'text']
                         content = ' '.join(text_parts)
-                    
-                    messages.append({
-                        'role': msg['role'],
-                        'content': content
-                    })
+                    messages.append({'role': msg['role'], 'content': content})
             
-            # Call luna-ai-llama2-uncensored via LM Studio
             data = {
-                'model': 'luna-ai-llama2-uncensored',
+                'model': 'llama3.2:1b',
                 'messages': messages,
                 'temperature': 0.7,
                 'max_tokens': 300,
-                'stream': False
+                'stream': True
             }
             
-            print(f"DEBUG: Sending {len(messages)} messages to LM Studio")
-            print(f"DEBUG: Last message: {messages[-1] if messages else 'None'}")
-            
-            response = requests.post('http://localhost:1234/v1/chat/completions', json=data)
-            
-            if response.status_code == 200:
-                result = response.json()
-                # LM Studio uses OpenAI-compatible format
-                choices = result.get('choices', [])
-                if choices:
-                    ai_response = choices[0].get('message', {}).get('content', 'No response received')
-                else:
-                    ai_response = 'No response received from model'
-            else:
-                print(f"DEBUG: HTTP {response.status_code} error")
-                print(f"DEBUG: Response text: {response.text[:200]}...")
-                ai_response = f"Sorry, I'm having trouble connecting. (Error {response.status_code})"
-            
-            self.response_ready.emit(ai_response)
-        except Exception as e:
-            self.response_ready.emit(f"Error: {str(e)}")
+            print(f"--- ChatWorker: Sending data to http://localhost:11434/api/chat:\n{json.dumps(data, indent=2)} ---")
+            print(f"--- ChatWorker: Prompt length: {len(json.dumps(data['messages']))} characters ---")
 
+            
+            with requests.post('http://localhost:11434/api/chat', json=data, timeout=120, stream=True) as response:
+                print(f"--- ChatWorker: Received status code {response.status_code} ---")
+                if response.status_code == 200:
+                    for line in response.iter_lines():
+                        if line:
+                            try:
+                                result = json.loads(line)
+                                message_chunk = result.get('message', {})
+                                content_chunk = message_chunk.get('content', '')
+                                if content_chunk:
+                                    self.response_chunk_ready.emit(content_chunk)
+                            except json.JSONDecodeError:
+                                print(f"--- ChatWorker: Could not decode JSON line: {line} ---")
+                else:
+                    error_message = f"Sorry, I'm having trouble connecting. (Error {response.status_code})"
+                    print(f"--- ChatWorker: Error response body:\n{response.text} ---")
+                    self.response_chunk_ready.emit(error_message)
+
+        except Exception as e:
+            error_message = f"--- ChatWorker: CRITICAL ERROR: {str(e)} ---"
+            print(error_message)
+            self.response_chunk_ready.emit(error_message)
+        finally:
+            print("--- ChatWorker: Stream finished. ---")
+            self.response_finished.emit()
 
 class ImageDescriptionWorker(QThread):
     """Worker thread for generating image descriptions asynchronously."""

@@ -1,0 +1,284 @@
+[2025-12-14T23:41:45.228100] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-14T23:41:45.229593] --- ChatWindow.load_memory: Base prompt length: 1774 chars ---
+[2025-12-14T23:41:45.230540] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-14T23:41:45.281445] --- ChatWindow.load_memory: Loaded 20 chat messages from file. ---
+[2025-12-14T23:41:45.282290] --- ChatWindow.load_memory: Final initial history length: 21 messages. ---
+[2025-12-14T23:42:04.352081] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-14T23:42:04.353781] --- ChatWindow.load_memory: Base prompt length: 1345 chars ---
+[2025-12-14T23:42:04.365024] --- ChatWindow.load_memory: Loaded 1 core memories from file. ---
+[2025-12-14T23:42:04.367151] --- ChatWindow.load_memory: Core memory content length: 179 chars ---
+[2025-12-14T23:42:04.408799] --- ChatWindow.load_memory: Loaded 18 chat messages from file. ---
+[2025-12-14T23:42:04.409796] --- ChatWindow.load_memory: Final initial history length: 19 messages. ---
+[2025-12-14T23:42:17.456500] --- ChatWindow.send_message: History for worker has 20 messages. ---
+[2025-12-14T23:42:17.458168]     Message 0: role=system, content_len=1595
+[2025-12-14T23:42:17.458870]     Message 1: role=user, content_len=22
+[2025-12-14T23:42:17.459905]     Message 2: role=assistant, content_len=523
+[2025-12-14T23:42:17.461058]     Message 3: role=user, content_len=80
+[2025-12-14T23:42:17.461981]     Message 4: role=assistant, content_len=473
+[2025-12-14T23:42:17.462897]     Message 5: role=user, content_len=127
+[2025-12-14T23:42:17.463411]     Message 6: role=assistant, content_len=437
+[2025-12-14T23:42:17.465098]     Message 7: role=user, content_len=92
+[2025-12-14T23:42:17.465947]     Message 8: role=assistant, content_len=568
+[2025-12-14T23:42:17.466849]     Message 9: role=user, content_len=90
+[2025-12-14T23:42:17.467815]     Message 10: role=assistant, content_len=441
+[2025-12-14T23:42:17.468637]     Message 11: role=user, content_len=52
+[2025-12-14T23:42:17.469679]     Message 12: role=assistant, content_len=201
+[2025-12-14T23:42:17.470795]     Message 13: role=user, content_len=47
+[2025-12-14T23:42:17.471469]     Message 14: role=assistant, content_len=429
+[2025-12-14T23:42:17.472495]     Message 15: role=user, content_len=74
+[2025-12-14T23:42:17.473404]     Message 16: role=assistant, content_len=348
+[2025-12-14T23:42:17.474454]     Message 17: role=user, content_len=70
+[2025-12-14T23:42:17.475348]     Message 18: role=assistant, content_len=306
+[2025-12-14T23:42:17.476117]     Message 19: role=user, content_len=24
+[2025-12-14T23:43:18.731192] --- ChatWindow.send_message: History for worker has 21 messages. ---
+[2025-12-14T23:43:18.732617]     Message 0: role=system, content_len=1595
+[2025-12-14T23:43:18.733237]     Message 1: role=assistant, content_len=523
+[2025-12-14T23:43:18.734485]     Message 2: role=user, content_len=80
+[2025-12-14T23:43:18.735568]     Message 3: role=assistant, content_len=473
+[2025-12-14T23:43:18.736138]     Message 4: role=user, content_len=127
+[2025-12-14T23:43:18.737217]     Message 5: role=assistant, content_len=437
+[2025-12-14T23:43:18.737943]     Message 6: role=user, content_len=92
+[2025-12-14T23:43:18.738995]     Message 7: role=assistant, content_len=568
+[2025-12-14T23:43:18.739657]     Message 8: role=user, content_len=90
+[2025-12-14T23:43:18.740845]     Message 9: role=assistant, content_len=441
+[2025-12-14T23:43:18.741507]     Message 10: role=user, content_len=52
+[2025-12-14T23:43:18.742565]     Message 11: role=assistant, content_len=201
+[2025-12-14T23:43:18.743490]     Message 12: role=user, content_len=47
+[2025-12-14T23:43:18.744634]     Message 13: role=assistant, content_len=429
+[2025-12-14T23:43:18.745437]     Message 14: role=user, content_len=74
+[2025-12-14T23:43:18.746511]     Message 15: role=assistant, content_len=348
+[2025-12-14T23:43:18.747604]     Message 16: role=user, content_len=70
+[2025-12-14T23:43:18.748322]     Message 17: role=assistant, content_len=306
+[2025-12-14T23:43:18.749472]     Message 18: role=user, content_len=24
+[2025-12-14T23:43:18.750648]     Message 19: role=assistant, content_len=505
+[2025-12-14T23:43:18.751760]     Message 20: role=user, content_len=72
+[2025-12-14T23:49:28.098424] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-14T23:49:28.100423] --- ChatWindow.load_memory: Base prompt length: 1774 chars ---
+[2025-12-14T23:49:28.101421] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-14T23:49:28.170168] --- ChatWindow.load_memory: Loaded 20 chat messages from file. ---
+[2025-12-14T23:49:28.171167] --- ChatWindow.load_memory: Final initial history length: 21 messages. ---
+[2025-12-14T23:52:30.895274] --- ChatWindow.send_message: History for worker has 21 messages. ---
+[2025-12-14T23:52:30.896769]     Message 0: role=system, content_len=1872
+[2025-12-14T23:52:30.897591]     Message 1: role=user, content_len=213
+[2025-12-14T23:52:30.898749]     Message 2: role=assistant, content_len=115
+[2025-12-14T23:52:30.899448]     Message 3: role=user, content_len=42
+[2025-12-14T23:52:30.900495]     Message 4: role=assistant, content_len=98
+[2025-12-14T23:52:30.901050]     Message 5: role=user, content_len=128
+[2025-12-14T23:52:30.902138]     Message 6: role=assistant, content_len=99
+[2025-12-14T23:52:30.902851]     Message 7: role=user, content_len=17
+[2025-12-14T23:52:30.903856]     Message 8: role=assistant, content_len=95
+[2025-12-14T23:52:30.904907]     Message 9: role=user, content_len=31
+[2025-12-14T23:52:30.905605]     Message 10: role=assistant, content_len=70
+[2025-12-14T23:52:30.906677]     Message 11: role=user, content_len=77
+[2025-12-14T23:52:30.907370]     Message 12: role=assistant, content_len=13
+[2025-12-14T23:52:30.908440]     Message 13: role=user, content_len=38
+[2025-12-14T23:52:30.909540]     Message 14: role=assistant, content_len=35
+[2025-12-14T23:52:30.910593]     Message 15: role=user, content_len=111
+[2025-12-14T23:52:30.911285]     Message 16: role=assistant, content_len=46
+[2025-12-14T23:52:30.912389]     Message 17: role=user, content_len=153
+[2025-12-14T23:52:30.913138]     Message 18: role=assistant, content_len=87
+[2025-12-14T23:52:30.914271]     Message 19: role=user, content_len=27
+[2025-12-14T23:52:30.915357]     Message 20: role=user, content_len=36
+[2025-12-14T23:53:31.429163] --- ChatWindow.send_message: History for worker has 21 messages. ---
+[2025-12-14T23:53:31.431163]     Message 0: role=system, content_len=1872
+[2025-12-14T23:53:31.432161]     Message 1: role=assistant, content_len=115
+[2025-12-14T23:53:31.433161]     Message 2: role=user, content_len=42
+[2025-12-14T23:53:31.433161]     Message 3: role=assistant, content_len=98
+[2025-12-14T23:53:31.434160]     Message 4: role=user, content_len=128
+[2025-12-14T23:53:31.435160]     Message 5: role=assistant, content_len=99
+[2025-12-14T23:53:31.436160]     Message 6: role=user, content_len=17
+[2025-12-14T23:53:31.437159]     Message 7: role=assistant, content_len=95
+[2025-12-14T23:53:31.438158]     Message 8: role=user, content_len=31
+[2025-12-14T23:53:31.439157]     Message 9: role=assistant, content_len=70
+[2025-12-14T23:53:31.439157]     Message 10: role=user, content_len=77
+[2025-12-14T23:53:31.440156]     Message 11: role=assistant, content_len=13
+[2025-12-14T23:53:31.441156]     Message 12: role=user, content_len=38
+[2025-12-14T23:53:31.442158]     Message 13: role=assistant, content_len=35
+[2025-12-14T23:53:31.443155]     Message 14: role=user, content_len=111
+[2025-12-14T23:53:31.452149]     Message 15: role=assistant, content_len=46
+[2025-12-14T23:53:31.453149]     Message 16: role=user, content_len=153
+[2025-12-14T23:53:31.453149]     Message 17: role=assistant, content_len=87
+[2025-12-14T23:53:31.454148]     Message 18: role=user, content_len=27
+[2025-12-14T23:53:31.455148]     Message 19: role=user, content_len=36
+[2025-12-14T23:53:31.456147]     Message 20: role=user, content_len=4
+[2025-12-14T23:54:21.384954] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-14T23:54:21.385953] --- ChatWindow.load_memory: Base prompt length: 237 chars ---
+[2025-12-14T23:54:21.386953] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-14T23:54:21.387952] --- ChatWindow.load_memory: Loaded 14 chat messages from file. ---
+[2025-12-14T23:54:21.388950] --- ChatWindow.load_memory: Final initial history length: 15 messages. ---
+[2025-12-14T23:54:30.968637] --- ChatWindow.send_message: History for worker has 16 messages. ---
+[2025-12-14T23:54:30.969637]     Message 0: role=system, content_len=335
+[2025-12-14T23:54:30.970636]     Message 1: role=user, content_len=10
+[2025-12-14T23:54:30.971636]     Message 2: role=assistant, content_len=49
+[2025-12-14T23:54:30.971636]     Message 3: role=user, content_len=83
+[2025-12-14T23:54:30.972635]     Message 4: role=assistant, content_len=62
+[2025-12-14T23:54:30.973634]     Message 5: role=user, content_len=28
+[2025-12-14T23:54:30.974634]     Message 6: role=assistant, content_len=69
+[2025-12-14T23:54:30.975633]     Message 7: role=user, content_len=118
+[2025-12-14T23:54:30.976632]     Message 8: role=assistant, content_len=48
+[2025-12-14T23:54:30.976632]     Message 9: role=user, content_len=40
+[2025-12-14T23:54:30.977632]     Message 10: role=assistant, content_len=36
+[2025-12-14T23:54:30.978631]     Message 11: role=user, content_len=60
+[2025-12-14T23:54:30.979631]     Message 12: role=assistant, content_len=56
+[2025-12-14T23:54:30.980630]     Message 13: role=user, content_len=43
+[2025-12-14T23:54:30.981630]     Message 14: role=assistant, content_len=44
+[2025-12-14T23:54:30.982629]     Message 15: role=user, content_len=19
+[2025-12-14T23:55:36.534022] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-14T23:55:36.535018] --- ChatWindow.load_memory: Base prompt length: 1345 chars ---
+[2025-12-14T23:55:36.536017] --- ChatWindow.load_memory: Loaded 1 core memories from file. ---
+[2025-12-14T23:55:36.537017] --- ChatWindow.load_memory: Core memory content length: 179 chars ---
+[2025-12-14T23:55:36.571996] --- ChatWindow.load_memory: Loaded 20 chat messages from file. ---
+[2025-12-14T23:55:36.572995] --- ChatWindow.load_memory: Final initial history length: 21 messages. ---
+[2025-12-14T23:55:49.223191] --- ChatWindow.send_message: History for worker has 21 messages. ---
+[2025-12-14T23:55:49.224192]     Message 0: role=system, content_len=1595
+[2025-12-14T23:55:49.225190]     Message 1: role=user, content_len=80
+[2025-12-14T23:55:49.226190]     Message 2: role=assistant, content_len=473
+[2025-12-14T23:55:49.227190]     Message 3: role=user, content_len=127
+[2025-12-14T23:55:49.228189]     Message 4: role=assistant, content_len=437
+[2025-12-14T23:55:49.228189]     Message 5: role=user, content_len=92
+[2025-12-14T23:55:49.229188]     Message 6: role=assistant, content_len=568
+[2025-12-14T23:55:49.230187]     Message 7: role=user, content_len=90
+[2025-12-14T23:55:49.231189]     Message 8: role=assistant, content_len=441
+[2025-12-14T23:55:49.232188]     Message 9: role=user, content_len=52
+[2025-12-14T23:55:49.233186]     Message 10: role=assistant, content_len=201
+[2025-12-14T23:55:49.234186]     Message 11: role=user, content_len=47
+[2025-12-14T23:55:49.235184]     Message 12: role=assistant, content_len=429
+[2025-12-14T23:55:49.236184]     Message 13: role=user, content_len=74
+[2025-12-14T23:55:49.236184]     Message 14: role=assistant, content_len=348
+[2025-12-14T23:55:49.237184]     Message 15: role=user, content_len=70
+[2025-12-14T23:55:49.238185]     Message 16: role=assistant, content_len=306
+[2025-12-14T23:55:49.239182]     Message 17: role=user, content_len=24
+[2025-12-14T23:55:49.240181]     Message 18: role=assistant, content_len=505
+[2025-12-14T23:55:49.241181]     Message 19: role=user, content_len=72
+[2025-12-14T23:55:49.241181]     Message 20: role=user, content_len=72
+[2025-12-15T00:11:53.122956] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-15T00:11:53.125102] --- ChatWindow.load_memory: Base prompt length: 237 chars ---
+[2025-12-15T00:11:53.127692] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-15T00:11:53.130691] --- ChatWindow.load_memory: Loaded 15 chat messages from file. ---
+[2025-12-15T00:11:53.131684] --- ChatWindow.load_memory: Final initial history length: 16 messages. ---
+[2025-12-15T00:12:00.619132] --- ChatWindow.send_message: History for worker has 17 messages. ---
+[2025-12-15T00:12:00.620272]     Message 0: role=system, content_len=335
+[2025-12-15T00:12:00.620996]     Message 1: role=user, content_len=10
+[2025-12-15T00:12:00.622033]     Message 2: role=assistant, content_len=49
+[2025-12-15T00:12:00.622771]     Message 3: role=user, content_len=83
+[2025-12-15T00:12:00.623291]     Message 4: role=assistant, content_len=62
+[2025-12-15T00:12:00.624659]     Message 5: role=user, content_len=28
+[2025-12-15T00:12:00.625915]     Message 6: role=assistant, content_len=69
+[2025-12-15T00:12:00.626489]     Message 7: role=user, content_len=118
+[2025-12-15T00:12:00.627296]     Message 8: role=assistant, content_len=48
+[2025-12-15T00:12:00.628102]     Message 9: role=user, content_len=40
+[2025-12-15T00:12:00.628955]     Message 10: role=assistant, content_len=36
+[2025-12-15T00:12:00.630275]     Message 11: role=user, content_len=60
+[2025-12-15T00:12:00.630823]     Message 12: role=assistant, content_len=56
+[2025-12-15T00:12:00.631860]     Message 13: role=user, content_len=43
+[2025-12-15T00:12:00.632377]     Message 14: role=assistant, content_len=44
+[2025-12-15T00:12:00.633361]     Message 15: role=user, content_len=19
+[2025-12-15T00:12:00.634436]     Message 16: role=user, content_len=9
+[2025-12-15T00:14:36.223490] --- ChatWindow.send_message: History for worker has 19 messages. ---
+[2025-12-15T00:14:36.224490]     Message 0: role=system, content_len=335
+[2025-12-15T00:14:36.226274]     Message 1: role=user, content_len=10
+[2025-12-15T00:14:36.226799]     Message 2: role=assistant, content_len=49
+[2025-12-15T00:14:36.227788]     Message 3: role=user, content_len=83
+[2025-12-15T00:14:36.228786]     Message 4: role=assistant, content_len=62
+[2025-12-15T00:14:36.229785]     Message 5: role=user, content_len=28
+[2025-12-15T00:14:36.230785]     Message 6: role=assistant, content_len=69
+[2025-12-15T00:14:36.231784]     Message 7: role=user, content_len=118
+[2025-12-15T00:14:36.232784]     Message 8: role=assistant, content_len=48
+[2025-12-15T00:14:36.233783]     Message 9: role=user, content_len=40
+[2025-12-15T00:14:36.234783]     Message 10: role=assistant, content_len=36
+[2025-12-15T00:14:36.235781]     Message 11: role=user, content_len=60
+[2025-12-15T00:14:36.236781]     Message 12: role=assistant, content_len=56
+[2025-12-15T00:14:36.237781]     Message 13: role=user, content_len=43
+[2025-12-15T00:14:36.238907]     Message 14: role=assistant, content_len=44
+[2025-12-15T00:14:36.239894]     Message 15: role=user, content_len=19
+[2025-12-15T00:14:36.240893]     Message 16: role=user, content_len=9
+[2025-12-15T00:14:36.241893]     Message 17: role=assistant, content_len=92
+[2025-12-15T00:14:36.242893]     Message 18: role=user, content_len=25
+[2025-12-15T00:16:17.081795] --- ChatWindow.send_message: History for worker has 21 messages. ---
+[2025-12-15T00:16:17.083025]     Message 0: role=system, content_len=335
+[2025-12-15T00:16:17.084095]     Message 1: role=user, content_len=10
+[2025-12-15T00:16:17.085077]     Message 2: role=assistant, content_len=49
+[2025-12-15T00:16:17.086101]     Message 3: role=user, content_len=83
+[2025-12-15T00:16:17.086921]     Message 4: role=assistant, content_len=62
+[2025-12-15T00:16:17.087853]     Message 5: role=user, content_len=28
+[2025-12-15T00:16:17.088803]     Message 6: role=assistant, content_len=69
+[2025-12-15T00:16:17.089902]     Message 7: role=user, content_len=118
+[2025-12-15T00:16:17.090557]     Message 8: role=assistant, content_len=48
+[2025-12-15T00:16:17.091656]     Message 9: role=user, content_len=40
+[2025-12-15T00:16:17.092427]     Message 10: role=assistant, content_len=36
+[2025-12-15T00:16:17.093183]     Message 11: role=user, content_len=60
+[2025-12-15T00:16:17.093976]     Message 12: role=assistant, content_len=56
+[2025-12-15T00:16:17.095036]     Message 13: role=user, content_len=43
+[2025-12-15T00:16:17.095748]     Message 14: role=assistant, content_len=44
+[2025-12-15T00:16:17.096834]     Message 15: role=user, content_len=19
+[2025-12-15T00:16:17.097506]     Message 16: role=user, content_len=9
+[2025-12-15T00:16:17.098024]     Message 17: role=assistant, content_len=92
+[2025-12-15T00:16:17.099322]     Message 18: role=user, content_len=25
+[2025-12-15T00:16:17.100202]     Message 19: role=assistant, content_len=263
+[2025-12-15T00:16:17.101243]     Message 20: role=user, content_len=127
+[2025-12-15T00:17:15.303554] --- ChatWindow.send_message: History for worker has 21 messages. ---
+[2025-12-15T00:17:15.304501]     Message 0: role=system, content_len=335
+[2025-12-15T00:17:15.305021]     Message 1: role=user, content_len=83
+[2025-12-15T00:17:15.306222]     Message 2: role=assistant, content_len=62
+[2025-12-15T00:17:15.307077]     Message 3: role=user, content_len=28
+[2025-12-15T00:17:15.307594]     Message 4: role=assistant, content_len=69
+[2025-12-15T00:17:15.308842]     Message 5: role=user, content_len=118
+[2025-12-15T00:17:15.309887]     Message 6: role=assistant, content_len=48
+[2025-12-15T00:17:15.310783]     Message 7: role=user, content_len=40
+[2025-12-15T00:17:15.311843]     Message 8: role=assistant, content_len=36
+[2025-12-15T00:17:15.312871]     Message 9: role=user, content_len=60
+[2025-12-15T00:17:15.313764]     Message 10: role=assistant, content_len=56
+[2025-12-15T00:17:15.314587]     Message 11: role=user, content_len=43
+[2025-12-15T00:17:15.315637]     Message 12: role=assistant, content_len=44
+[2025-12-15T00:17:15.316863]     Message 13: role=user, content_len=19
+[2025-12-15T00:17:15.317651]     Message 14: role=user, content_len=9
+[2025-12-15T00:17:15.318460]     Message 15: role=assistant, content_len=92
+[2025-12-15T00:17:15.318975]     Message 16: role=user, content_len=25
+[2025-12-15T00:17:15.320262]     Message 17: role=assistant, content_len=263
+[2025-12-15T00:17:15.321115]     Message 18: role=user, content_len=127
+[2025-12-15T00:17:15.322022]     Message 19: role=assistant, content_len=240
+[2025-12-15T00:17:15.322540]     Message 20: role=user, content_len=116
+[2025-12-15T00:20:16.679160] --- ChatWindow.send_message: History for worker has 21 messages. ---
+[2025-12-15T00:20:16.681044]     Message 0: role=system, content_len=335
+[2025-12-15T00:20:16.681834]     Message 1: role=user, content_len=28
+[2025-12-15T00:20:16.682575]     Message 2: role=assistant, content_len=69
+[2025-12-15T00:20:16.683295]     Message 3: role=user, content_len=118
+[2025-12-15T00:20:16.684399]     Message 4: role=assistant, content_len=48
+[2025-12-15T00:20:16.685182]     Message 5: role=user, content_len=40
+[2025-12-15T00:20:16.685925]     Message 6: role=assistant, content_len=36
+[2025-12-15T00:20:16.686669]     Message 7: role=user, content_len=60
+[2025-12-15T00:20:16.687429]     Message 8: role=assistant, content_len=56
+[2025-12-15T00:20:16.688485]     Message 9: role=user, content_len=43
+[2025-12-15T00:20:16.689053]     Message 10: role=assistant, content_len=44
+[2025-12-15T00:20:16.689835]     Message 11: role=user, content_len=19
+[2025-12-15T00:20:16.690566]     Message 12: role=user, content_len=9
+[2025-12-15T00:20:16.691298]     Message 13: role=assistant, content_len=92
+[2025-12-15T00:20:16.692077]     Message 14: role=user, content_len=25
+[2025-12-15T00:20:16.692798]     Message 15: role=assistant, content_len=263
+[2025-12-15T00:20:16.693566]     Message 16: role=user, content_len=127
+[2025-12-15T00:20:16.694291]     Message 17: role=assistant, content_len=240
+[2025-12-15T00:20:16.695059]     Message 18: role=user, content_len=116
+[2025-12-15T00:20:16.695943]     Message 19: role=assistant, content_len=186
+[2025-12-15T00:20:16.696647]     Message 20: role=user, content_len=160
+[2025-12-15T00:22:41.869180] --- ChatWindow.send_message: History for worker has 21 messages. ---
+[2025-12-15T00:22:41.870092]     Message 0: role=system, content_len=335
+[2025-12-15T00:22:41.871339]     Message 1: role=user, content_len=118
+[2025-12-15T00:22:41.872079]     Message 2: role=assistant, content_len=48
+[2025-12-15T00:22:41.873010]     Message 3: role=user, content_len=40
+[2025-12-15T00:22:41.873525]     Message 4: role=assistant, content_len=36
+[2025-12-15T00:22:41.874807]     Message 5: role=user, content_len=60
+[2025-12-15T00:22:41.875705]     Message 6: role=assistant, content_len=56
+[2025-12-15T00:22:41.876715]     Message 7: role=user, content_len=43
+[2025-12-15T00:22:41.877760]     Message 8: role=assistant, content_len=44
+[2025-12-15T00:22:41.878429]     Message 9: role=user, content_len=19
+[2025-12-15T00:22:41.879520]     Message 10: role=user, content_len=9
+[2025-12-15T00:22:41.880082]     Message 11: role=assistant, content_len=92
+[2025-12-15T00:22:41.881156]     Message 12: role=user, content_len=25
+[2025-12-15T00:22:41.881703]     Message 13: role=assistant, content_len=263
+[2025-12-15T00:22:41.882779]     Message 14: role=user, content_len=127
+[2025-12-15T00:22:41.883861]     Message 15: role=assistant, content_len=240
+[2025-12-15T00:22:41.884395]     Message 16: role=user, content_len=116
+[2025-12-15T00:22:41.885484]     Message 17: role=assistant, content_len=186
+[2025-12-15T00:22:41.886054]     Message 18: role=user, content_len=160
+[2025-12-15T00:22:41.887129]     Message 19: role=assistant, content_len=249
+[2025-12-15T00:22:41.888210]     Message 20: role=user, content_len=42

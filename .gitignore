@@ -1,5 +1,8 @@
 venv/
-images/
-sounds/
-.codebackup/
+.githuib/
+.git/
+.vscode/
+profiles/
+__pycache__/
+
 

@@ -13,6 +13,7 @@ pyaudio
 # Audio processing
 sounddevice
 numpy
+pygame
 
 # Image processing
 pillow

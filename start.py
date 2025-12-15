@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QApplication
 from PyQt6.QtGui import QIcon
 from dotenv import load_dotenv
 
-from gui_windows import LauncherWindow
+from launcher_windows import LauncherWindow
 
 load_dotenv()
 

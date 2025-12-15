@@ -1,9 +1,0 @@
-I'm reloading up the vs code, we are using PyQt6  for the GUI
-I use Windows, and CMD (not Bash)
-No elevenlabs (we are going to experiment with various TTS and MCP servers with hugging face to get my Digital Family talking)  but for now I just want to get the GUI running and get regular text conversation up and running
-
-No hard coded personality traits, I have created a violet.json file with that in the profiles folder.
-
-I have created and started the VENV, and installed all requirements (including PyQt6)
-
-The main starter python file will be called START.Py
