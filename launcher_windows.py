@@ -77,8 +77,11 @@ class EmotionMapEditor(QWidget):
         self.scroll_layout = QVBoxLayout(scroll_content)
         scroll_area.setWidget(scroll_content)
         main_layout.addWidget(scroll_area)
+
+        # Initial population of rows
         for keyword, filename in self.current_map.items():
             self.add_emotion_row(keyword, filename)
+
         default_layout = QHBoxLayout()
         default_layout.addWidget(QLabel("<b>Default Image:</b>"))
         self.default_selector = QComboBox()
@@ -87,6 +90,7 @@ class EmotionMapEditor(QWidget):
         )
         default_layout.addWidget(self.default_selector)
         main_layout.addLayout(default_layout)
+
         button_layout = QHBoxLayout()
         add_button = QPushButton("Add Emotion")
         add_button.clicked.connect(lambda: self.add_emotion_row())
@@ -100,22 +104,42 @@ class EmotionMapEditor(QWidget):
         self.check_save_button_state()
 
     def add_emotion_row(self, keyword="", filename=""):
-        row_layout = QHBoxLayout()
+        row_widget = QWidget()
+        row_layout = QHBoxLayout(row_widget)
+        row_layout.setContentsMargins(0, 0, 0, 0)
+
         keyword_input = QLineEdit(keyword)
         keyword_input.setPlaceholderText("Emotion Keyword (e.g., laugh)")
         filepath_input = QLineEdit(filename)
         filepath_input.setReadOnly(True)
         browse_button = QPushButton("Browse...")
-        browse_button.clicked.connect(
-            lambda: self.browse_for_image(filepath_input)
-        )
+        delete_button = QPushButton("Delete")
+
         row_layout.addWidget(QLabel("Keyword:"))
         row_layout.addWidget(keyword_input)
         row_layout.addWidget(QLabel("Image File:"))
         row_layout.addWidget(filepath_input)
         row_layout.addWidget(browse_button)
-        self.scroll_layout.addLayout(row_layout)
-        self.rows.append((keyword_input, filepath_input))
+        row_layout.addWidget(delete_button)
+
+        item_tuple = (keyword_input, filepath_input)
+        self.rows.append(item_tuple)
+        
+        browse_button.clicked.connect(
+            lambda: self.browse_for_image(filepath_input)
+        )
+        delete_button.clicked.connect(
+            lambda: self.delete_row(row_widget, item_tuple)
+        )
+
+        self.scroll_layout.addWidget(row_widget)
+
+    def delete_row(self, row_widget, item_tuple):
+        """Removes a row from the UI and the internal list."""
+        if item_tuple in self.rows:
+            self.rows.remove(item_tuple)
+        row_widget.deleteLater()
+        self.populate_default_selector()
 
     def browse_for_image(self, filepath_input):
         source_path, _ = QFileDialog.getOpenFileName(
@@ -136,10 +160,15 @@ class EmotionMapEditor(QWidget):
             os.makedirs(destination_dir)
         try:
             shutil.copy(source_path, destination_path)
-            filepath_input.setText(source_filename)
-            self.populate_default_selector()
+        except shutil.SameFileError:
+            # This is not an error, the user selected the file that's already in the profile folder.
+            pass
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Could not copy file: {e}")
+            return # Stop if the copy fails for other reasons
+
+        filepath_input.setText(source_filename)
+        self.populate_default_selector()
 
     def populate_default_selector(self):
         self.default_selector.blockSignals(True)
@@ -348,7 +377,8 @@ class LauncherWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowIcon(QIcon(os.path.join(ICON_DIR, 'app_icon.png')))
-        self.chat_windows = []
+        self.character_instances = {}
+        self.chat_instances = {}
         self.profile_creator_window = None
         self.setWindowTitle("Digital Family Launcher")
         self.setGeometry(200, 200, 300, 300)
@@ -388,34 +418,35 @@ class LauncherWindow(QWidget):
         if not selected_item:
             return
         profile_name = selected_item.text()
-        profile_data = load_profile(profile_name)
         
+        # If character window already exists, just show it
+        if profile_name in self.character_instances:
+            self.character_instances[profile_name].show()
+            self.character_instances[profile_name].activateWindow()
+            return
+            
+        profile_data = load_profile(profile_name)
         if profile_data:
-            # Check if a character window for this profile already exists
-            for window in self.chat_windows:
-                if isinstance(window, CharacterWindow) and window.profile_data['name'] == profile_name:
-                    window.show()
-                    window.activateWindow()
-                    return
-
-            # Create and show the new floating character window
             char_win = CharacterWindow(profile_data)
-            char_win.launch_chat_requested.connect(lambda: self.open_full_chat(profile_data))
-            self.chat_windows.append(char_win)
+            # Use a lambda to pass the profile data to the slot
+            char_win.launch_chat_requested.connect(lambda p=profile_data: self.open_full_chat(p))
+            self.character_instances[profile_name] = char_win
             char_win.show()
 
     def open_full_chat(self, profile_data):
         profile_name = profile_data['name']
-        # Check if a full chat window for this profile already exists
-        for window in self.chat_windows:
-            if isinstance(window, ChatWindow) and window.profile_data['name'] == profile_name:
-                window.show()
-                window.activateWindow()
-                return
         
-        # Create and show the full chat window
-        chat_win = ChatWindow(profile_data)
-        self.chat_windows.append(chat_win)
+        # If chat window already exists, just show it
+        if profile_name in self.chat_instances:
+            self.chat_instances[profile_name].show()
+            self.chat_instances[profile_name].activateWindow()
+            return
+        
+        # Get the character window to pass it to the chat window
+        character_window = self.character_instances.get(profile_name)
+        
+        chat_win = ChatWindow(profile_data, character_window)
+        self.chat_instances[profile_name] = chat_win
         chat_win.show()
 
     def open_profile_creator(self):
@@ -444,6 +475,9 @@ class LauncherWindow(QWidget):
         self.update_button_states()
 
     def closeEvent(self, event: QCloseEvent):
-        for window in self.chat_windows:
+        # Close all character and chat windows
+        for window in list(self.character_instances.values()):
+            window.close()
+        for window in list(self.chat_instances.values()):
             window.close()
         event.accept()

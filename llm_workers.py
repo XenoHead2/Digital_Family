@@ -9,64 +9,63 @@ load_dotenv()
 
 class ChatWorker(QThread):
     """Worker thread for handling LLM API calls asynchronously."""
-    response_ready = pyqtSignal(str)
+    response_chunk_ready = pyqtSignal(str)
+    response_finished = pyqtSignal()
     
     def __init__(self, conversation_history):
         super().__init__()
         self.conversation_history = conversation_history
     
-    def run(self):
-        """Make the API call in the background thread, targeting Ollama."""
-        # --- Ollama Configuration (LLAMA 3 8B) ---
-        OLLAMA_API_URL = "http://localhost:11434/api/chat"
-        OLLAMA_MODEL = "artifish/llama3.2-uncensored:latest"
-        
+    def run(self): 
+        """Make the API call in the background thread and stream the response."""
+        print("--- ChatWorker: Starting streaming API call ---")
         try:
-            # Convert conversation history to Ollama-compatible messages format
             messages = []
             for msg in self.conversation_history:
                 if msg.get('role') in ['system', 'user', 'assistant']:
                     content = msg.get('content', '')
                     if isinstance(content, list):
-                        # Handle multimodal content (only extracting text for Llama3 8B)
-                        text_parts = [
-                            item.get('text', '')
-                            for item in content
-                            if isinstance(item, dict) and item.get('type') == 'text'
-                        ]
+                        text_parts = [item['text'] for item in content if isinstance(item, dict) and item.get('type') == 'text']
                         content = ' '.join(text_parts)
-                    
-                    messages.append({
-                        'role': msg['role'],
-                        'content': content
-                    })
+                    messages.append({'role': msg['role'], 'content': content})
             
-            # --- Ollama API Call ---
             data = {
-                'model': OLLAMA_MODEL,
+                'model': 'llama3.2:1b',
                 'messages': messages,
-                'stream': False
+                'temperature': 0.7,
+                'max_tokens': 300,
+                'stream': True
             }
             
-            print(f"DEBUG: Sending {len(messages)} messages to Ollama")
-            print(f"DEBUG: Last message: {messages[-1] if messages else 'None'}")
-            
-            response = requests.post(OLLAMA_API_URL, json=data, timeout=120)
-            
-            if response.status_code == 200:
-                result = response.json()
-                ai_response = result.get('message', {}).get('content', 'No response received from Ollama model.')
-            else:
-                print(f"DEBUG: HTTP {response.status_code} error from Ollama")
-                print(f"DEBUG: Response text: {response.text[:500]}...")
-                ai_response = f"Sorry, I'm having trouble connecting to Ollama. (Error {response.status_code})"
-            
-            self.response_ready.emit(ai_response)
-        except requests.exceptions.RequestException:
-            self.response_ready.emit(f"Connection Error: Could not connect to Ollama at {OLLAMA_API_URL}. Is Ollama running?")
-        except Exception as e:
-            self.response_ready.emit(f"An unexpected error occurred: {str(e)}")
+            print(f"--- ChatWorker: Sending data to http://localhost:11434/api/chat:\n{json.dumps(data, indent=2)} ---")
+            print(f"--- ChatWorker: Prompt length: {len(json.dumps(data['messages']))} characters ---")
 
+            
+            with requests.post('http://localhost:11434/api/chat', json=data, timeout=120, stream=True) as response:
+                print(f"--- ChatWorker: Received status code {response.status_code} ---")
+                if response.status_code == 200:
+                    for line in response.iter_lines():
+                        if line:
+                            try:
+                                result = json.loads(line)
+                                message_chunk = result.get('message', {})
+                                content_chunk = message_chunk.get('content', '')
+                                if content_chunk:
+                                    self.response_chunk_ready.emit(content_chunk)
+                            except json.JSONDecodeError:
+                                print(f"--- ChatWorker: Could not decode JSON line: {line} ---")
+                else:
+                    error_message = f"Sorry, I'm having trouble connecting. (Error {response.status_code})"
+                    print(f"--- ChatWorker: Error response body:\n{response.text} ---")
+                    self.response_chunk_ready.emit(error_message)
+
+        except Exception as e:
+            error_message = f"--- ChatWorker: CRITICAL ERROR: {str(e)} ---"
+            print(error_message)
+            self.response_chunk_ready.emit(error_message)
+        finally:
+            print("--- ChatWorker: Stream finished. ---")
+            self.response_finished.emit()
 
 class ImageDescriptionWorker(QThread):
     """Worker thread for generating image descriptions asynchronously."""
