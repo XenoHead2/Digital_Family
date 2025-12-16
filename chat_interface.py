@@ -14,10 +14,7 @@ def log_to_file(message):
     with open(LOG_FILE, "a", encoding="utf-8") as f:
         f.write(f"[{datetime.now().isoformat()}] {message}\n")
 
-# Placeholder for local TTS until a full solution is implemented.
-def speak_text(text, voice_id=""):
-    """Bypasses TTS by printing the text to the console."""
-    print(f"--- TTS BYPASSED: Would have spoken: '{text[:100]}...' ---")
+from piper_tts import speak_text
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QTextEdit,
     QLineEdit, QPushButton, QLabel, QFormLayout,
@@ -27,6 +24,45 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt, pyqtSignal, QThread
 from PyQt6.QtGui import QCloseEvent, QPixmap, QIcon, QPainter, QColor, QPainterPath, QAction
 import uuid
+
+# --- NEW: Dedicated Audio Player Worker ---
+class AudioPlayerWorker(QThread):
+    """A dedicated worker to play audio without blocking the UI or other workers."""
+    finished = pyqtSignal()
+
+    def __init__(self, text, voice_model_name):
+        super().__init__()
+        self.text = text
+        self.voice_model_name = voice_model_name
+
+    def run(self):
+        """Calls the TTS function in a separate thread."""
+        speak_text(self.text, voice_model_name=self.voice_model_name)
+        self.finished.emit()
+
+# --- NEW: Dedicated Speech Recognition Worker ---
+class SpeechRecognitionWorker(QThread):
+    """A worker to handle speech recognition without blocking the UI."""
+    text_recognized = pyqtSignal(str)
+    recognition_error = pyqtSignal(str)
+    listening_finished = pyqtSignal()
+
+    def run(self):
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            try:
+                # Adjust for ambient noise once before listening
+                r.adjust_for_ambient_noise(source, duration=0.5)
+                audio = r.listen(source, timeout=5, phrase_time_limit=10)
+                text = r.recognize_google(audio)
+                self.text_recognized.emit(text)
+            except sr.WaitTimeoutError:
+                self.recognition_error.emit("Listening timed out. Please try again.")
+            except sr.UnknownValueError:
+                self.recognition_error.emit("Sorry, I could not understand the audio.")
+            except sr.RequestError as e:
+                self.recognition_error.emit(f"Could not request results from Google; {e}")
+        self.listening_finished.emit()
 
 from llm_workers import ChatWorker, ImageDescriptionWorker
 
@@ -114,6 +150,7 @@ class CoreMemoryEditor(QWidget):
         self.core_memory_file = core_memory_file
         self.character_name = character_name
         self.rows = [] # This will store tuples of (QLineEdit, QWidget)
+        self.is_dirty = False # To track if changes have been made
 
         self.setWindowTitle(f"Edit Core Memories for {character_name}")
         self.setWindowIcon(QIcon(os.path.join(ICON_DIR, 'app_icon.png')))
@@ -146,22 +183,88 @@ class CoreMemoryEditor(QWidget):
 
         # --- Load existing data and connect signals ---
         self.load_memories()
-        # add_button.clicked.connect(self.add_memory_row) # Will implement next
-        # save_button.clicked.connect(self.save_memories) # Will implement next
+        add_button.clicked.connect(self.add_memory_row)
+        save_button.clicked.connect(self.save_memories)
     
     def load_memories(self):
         """Loads memories from the JSON file and populates the UI."""
         if not os.path.exists(self.core_memory_file):
             return
-        
         with open(self.core_memory_file, 'r', encoding='utf-8') as f:
             try:
                 memories = json.load(f)
-                # self.scroll_layout will be populated by add_memory_row, which we'll call here
-                # for memory in memories:
-                #     self.add_memory_row(memory.get("memory", ""))
+                for memory in memories:
+                    self.add_memory_row(memory.get("memory", ""))
             except json.JSONDecodeError:
                 QMessageBox.warning(self, "Error", "Could not decode the core memory file. It may be corrupted.")
+        self.is_dirty = False # Reset dirty flag after initial load
+
+    def add_memory_row(self, text=""):
+        """Adds a new row for a memory entry to the UI."""
+        row_widget = QWidget()
+        row_layout = QHBoxLayout(row_widget)
+        row_layout.setContentsMargins(0, 0, 0, 0)
+
+        memory_input = QLineEdit(text)
+        memory_input.setPlaceholderText("Enter a core memory...")
+        memory_input.textChanged.connect(self.mark_as_dirty)
+
+        delete_button = QPushButton("Delete")
+
+        row_layout.addWidget(memory_input)
+        row_layout.addWidget(delete_button)
+
+        item_tuple = (memory_input, row_widget)
+        self.rows.append(item_tuple)
+
+        delete_button.clicked.connect(lambda: self.delete_row(item_tuple))
+
+        self.scroll_layout.addWidget(row_widget)
+        self.mark_as_dirty()
+
+    def delete_row(self, item_tuple):
+        """Removes a memory row from the UI and the internal list."""
+        if item_tuple in self.rows:
+            self.rows.remove(item_tuple)
+        
+        memory_input, row_widget = item_tuple
+        row_widget.deleteLater()
+        self.mark_as_dirty()
+
+    def mark_as_dirty(self):
+        """Flags that changes have been made."""
+        self.is_dirty = True
+
+    def save_memories(self):
+        """Saves all current memories from the UI to the JSON file."""
+        memories_to_save = []
+        for memory_input, _ in self.rows:
+            memory_text = memory_input.text().strip()
+            if memory_text:
+                memories_to_save.append({
+                    "timestamp": datetime.utcnow().isoformat() + "Z",
+                    "memory": memory_text
+                })
+        
+        try:
+            with open(self.core_memory_file, 'w', encoding='utf-8') as f:
+                json.dump(memories_to_save, f, indent=4)
+            QMessageBox.information(self, "Success", "Core memories have been saved.")
+            self.is_dirty = False
+            self.close()
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Could not save memories: {e}")
+
+    def closeEvent(self, event: QCloseEvent):
+        """Warns the user if there are unsaved changes."""
+        if self.is_dirty:
+            reply = QMessageBox.question(self, 'Unsaved Changes', "You have unsaved changes. Are you sure you want to close?", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, QMessageBox.StandardButton.No)
+            if reply == QMessageBox.StandardButton.Yes:
+                event.accept()
+            else:
+                event.ignore()
+        else:
+            event.accept()
 
 
 class ChatWindow(QWidget):
@@ -172,7 +275,8 @@ class ChatWindow(QWidget):
         self.setWindowTitle(
             f"Chat with {self.profile_data.get('name', 'Bot')}"
         )
-        self.setGeometry(250, 250, 800, 600)
+        # --- NEW: Set a smaller default window size ---
+        self.setGeometry(250, 250, 550, 450)
         self.memory_window = None
         self.attached_file_path = None
         self.active_workers = []
@@ -202,35 +306,32 @@ class ChatWindow(QWidget):
 
     def start_listening(self):
         """Starts the speech recognition process in a separate thread."""
-        self.user_input.setText("Listening...")
-        self.user_input.setEnabled(False)
+        self.user_input.setPlaceholderText("Listening...")
         self.speak_button.setEnabled(False)
-        self.listen_thread = threading.Thread(target=self.recognize_speech)
-        self.listen_thread.start()
+        
+        self.speech_worker = SpeechRecognitionWorker()
+        self.speech_worker.text_recognized.connect(self.handle_recognized_text)
+        self.speech_worker.recognition_error.connect(self.handle_recognition_error)
+        self.speech_worker.listening_finished.connect(self.on_listening_finished)
+        self.speech_worker.start()
 
-    def recognize_speech(self):
-        """Handles the speech-to-text conversion."""
-        r = sr.Recognizer()
-        with sr.Microphone() as source:
-            try:
-                audio = r.listen(source, timeout=5, phrase_time_limit=5)
-                text = r.recognize_google(audio)
-                self.user_input.setText(text)
-                self.user_input.setEnabled(True)
-                self.speak_button.setEnabled(True)
-                self.send_message()
-            except sr.UnknownValueError:
-                self.user_input.setText("Could not understand audio.")
-            except sr.RequestError as e:
-                self.user_input.setText(
-                    f"Could not request results from Google Speech "
-                    f"Recognition service; {e}"
-                )
-            except Exception as e:
-                self.user_input.setText(f"An error occurred: {e}")
-            finally:
-                self.user_input.setEnabled(True)
-                self.speak_button.setEnabled(True)
+    def handle_recognized_text(self, text):
+        """Called when the speech worker successfully recognizes text."""
+        self.user_input.setText(text)
+        self.send_message()
+
+    def handle_recognition_error(self, error_message):
+        """Called when the speech worker encounters an error."""
+        # Briefly show the error in the placeholder text
+        self.user_input.setPlaceholderText(error_message)
+        # We can use a QTimer to reset it after a couple of seconds if desired,
+        # but for now, it will reset on the next action.
+
+    def on_listening_finished(self):
+        """Re-enables the UI after the listening process is complete."""
+        self.speak_button.setEnabled(True)
+        if not self.user_input.text(): # If no text was set
+            self.reset_attachment() # Resets placeholder text
 
     def update_history_with_description(self, message_id, description):
         """Finds a message in the history by its ID and updates its content
@@ -251,48 +352,24 @@ class ChatWindow(QWidget):
 
     def load_memory(self):
         log_to_file("--- ChatWindow.load_memory: Building system prompt... ---")
-        prompt_parts = []
         name = self.profile_data.get('name', 'Unknown')
         user_name = self.profile_data.get('user_name', 'Daddy')
-        prompt_parts.append(f"You are a chatbot named {name}.")
-        if self.profile_data.get('gender'):
-            prompt_parts.append(f"You are {self.profile_data.get('gender')}.")
-        if self.profile_data.get('age'):
-            prompt_parts.append(
-                f"You are {self.profile_data.get('age')}" " years old."
-            )
-        appearance = self.profile_data.get('appearance', {})
-        appearance_parts = []
-        if appearance.get('hair'):
-            appearance_parts.append(f"hair is {appearance.get('hair')}")
-        if appearance.get('eyes'):
-            appearance_parts.append(f"eyes are {appearance.get('eyes')}")
-        if appearance.get('body_type'):
-            appearance_parts.append(
-                f"body type is {appearance.get('body_type')}"
-            )
-        if appearance_parts:
-            prompt_parts.append(
-                "Your appearance is as follows: your " +
-                ", your ".join(appearance_parts) + "."
-            )
-        personality = self.profile_data.get('personality', {})
-        if personality.get('likes'):
-            prompt_parts.append(f"You like {personality.get('likes')}.")
-        if personality.get('dislikes'):
-            prompt_parts.append(f"You dislike {personality.get('dislikes')}.")
-        if self.profile_data.get('extra_info'):
-            prompt_parts.append(self.profile_data.get('extra_info'))
-        default_instructions = self.profile_data.get(
-            'default_instructions',
-            ""
-        ).replace("the user", f"'{user_name}'")
-        prompt_parts.append(default_instructions)
-        base_prompt = " ".join(part for part in prompt_parts if part)
-        log_to_file(f"--- ChatWindow.load_memory: Base prompt length: {len(base_prompt)} chars ---")
+
+        # --- CONCISE SYSTEM PROMPT ---
+        # This creates a much shorter, summary-style prompt.
+        persona_summary = (
+            f"You are {name}. Your personality is defined by these traits: "
+            f"Likes: {self.profile_data.get('personality', {}).get('likes', 'N/A')}. "
+            f"Dislikes: {self.profile_data.get('personality', {}).get('dislikes', 'N/A')}. "
+            f"Your core instructions are: '{self.profile_data.get('default_instructions', '')}'. "
+            f"You are speaking to '{user_name}'. "
+            "Always include spoken text in your response, even when performing an action."
+        )
+        log_to_file(f"--- ChatWindow.load_memory: Persona summary length: {len(persona_summary)} chars ---")
 
         core_memory_content = "No core memories saved yet."
-        if os.path.exists(self.core_memory_file):
+        # --- NEW: Check if long-term memory is enabled ---
+        if self.character_window and self.character_window.long_term_memory_enabled and os.path.exists(self.core_memory_file):
             with open(self.core_memory_file, 'r', encoding='utf-8') as f:
                 try:
                     memories = json.load(f)
@@ -308,10 +385,12 @@ class ChatWindow(QWidget):
                 core_memory_content = "\n".join(
                     [f"- {item['memory']}" for item in memories]
                 )
+        else:
+            log_to_file("--- ChatWindow.load_memory: Long-term memory is disabled or file not found. Skipping. ---")
         
         log_to_file(f"--- ChatWindow.load_memory: Core memory content length: {len(core_memory_content)} chars ---")
         full_prompt = (
-            f"{base_prompt}\n\n--- Core Memories ---\n"
+            f"{persona_summary}\n\n--- Core Memories ---\n"
             f"Here are some key things to remember about us:\n"
             f"{core_memory_content}"
         )
@@ -319,7 +398,8 @@ class ChatWindow(QWidget):
 
         # Load and truncate chat history from the file
         chat_history_from_file = []
-        if os.path.exists(self.history_file):
+        # --- NEW: Check if short-term memory is enabled ---
+        if self.character_window and self.character_window.short_term_memory_enabled and os.path.exists(self.history_file):
             try:
                 with open(self.history_file, 'r', encoding='utf-8') as f:
                     loaded_history = json.load(f)
@@ -332,6 +412,8 @@ class ChatWindow(QWidget):
                     chat_history_from_file = loaded_history
             except Exception as e:
                 log_to_file(f"Error loading history: {e}")
+        else:
+            log_to_file("--- ChatWindow.load_memory: Short-term memory is disabled or file not found. Skipping. ---")
 
         # The conversation history starts with the system prompt plus the truncated chat history
         self.conversation_history = [system_message] + chat_history_from_file
@@ -464,20 +546,26 @@ class ChatWindow(QWidget):
         else:
             api_content_for_llm = history_content_for_log = user_text
             self.conversation_history.append({"role": "user", "content": history_content_for_log})
-
+        
         self.user_input.clear()
         
-        # --- New, definitive truncation logic ---
+        # --- Definitive truncation logic ---
         system_prompt = self.conversation_history[0]
-        chat_messages = [msg for msg in self.conversation_history if msg['role'] != 'system']
-        if len(chat_messages) > self.max_history_length:
-            chat_messages = chat_messages[-self.max_history_length:]
+        # --- NEW: Only include chat history if short-term memory is enabled ---
+        if self.character_window and self.character_window.short_term_memory_enabled:
+            chat_messages = [msg for msg in self.conversation_history if msg['role'] != 'system']
+            # Truncate if we are AT or OVER the max length
+            if len(chat_messages) >= self.max_history_length:
+                chat_messages = chat_messages[-self.max_history_length:]
+        else:
+            chat_messages = [] # No history if disabled
         
-        # Persist the truncated history for the current session
+        # The worker gets the final, correctly formatted and truncated history
         self.conversation_history = [system_prompt] + chat_messages
-
-        # The worker gets the final, correctly formatted history
-        history_for_worker = self.conversation_history[:-1] + [{"role": "user", "content": api_content_for_llm}]
+        # --- FIX: Ensure the current user message is always sent, even if history is off ---
+        # If chat_messages is empty (history disabled), self.conversation_history only has the system prompt.
+        # We need to add the new user message to what the worker receives.
+        history_for_worker = self.conversation_history + [{"role": "user", "content": api_content_for_llm}]
         
         # --- MORE LOGGING ---
         log_to_file(f"--- ChatWindow.send_message: History for worker has {len(history_for_worker)} messages. ---")
@@ -511,6 +599,9 @@ class ChatWindow(QWidget):
         # Append the plain text chunk to the display
         self.chat_display.insertPlainText(chunk)
         self.current_response += chunk
+        # --- NEW: Ensure the chat display automatically scrolls to the bottom ---
+        scrollbar = self.chat_display.verticalScrollBar()
+        scrollbar.setValue(scrollbar.maximum())
 
     def handle_llm_finished(self):
         """Handles the end of the streaming response."""
@@ -531,19 +622,42 @@ class ChatWindow(QWidget):
             chat_messages = chat_messages[-self.max_history_length:]
         self.conversation_history = [system_prompt] + chat_messages
         
-        # Update emotion on the character window and speak the full response
-        if self.character_window:
-            self.character_window.update_emotion(self.current_response)
-        voice_id = self.profile_data.get("tts_voice", "21m00Tcm4oosq6XlT19c")
-        speak_text(self.current_response, voice_id=voice_id)
-        
-        # Reset for the next message
+        # --- NEW: Check for silent, action-only responses ---
+        cleaned_response = re.sub(r'\[.*?\]|\*.*?\*', '', self.current_response).strip()
+        if not cleaned_response:
+            log_to_file("--- handle_llm_finished: Detected action-only response. Requesting elaboration. ---")
+            # The response was only an action. Ask the AI to elaborate.
+            # We add the silent action to history so it has context.
+            # Then we create a new user message asking it to speak.
+            follow_up_prompt = "You just performed an action. Now, add some spoken words to it."
+            self.conversation_history.append({"role": "user", "content": follow_up_prompt})
+            
+            # Use the existing send_message infrastructure, but don't add to display
+            history_for_worker = self.conversation_history
+            self.is_first_chunk = True
+            self.worker = ChatWorker(history_for_worker)
+            self.worker.response_chunk_ready.connect(self.handle_llm_chunk)
+            self.worker.response_finished.connect(self.handle_llm_finished)
+            self.active_workers.append(self.worker)
+            self.worker.start()
+            # --- FIX: Do not proceed to the speech part for silent responses ---
+            return
+        else:
+            # This is a normal response with speech, so proceed as usual.
+            if self.character_window:
+                self.character_window.update_emotion(self.current_response)
+            voice_model = self.profile_data.get("tts_voice_model", "en_US-ljspeech-high.onnx")
+            
+            # --- NEW: Use the dedicated audio worker ---
+            self.audio_worker = AudioPlayerWorker(self.current_response, voice_model)
+            # Clean up the worker once it's done to prevent resource leaks
+            self.audio_worker.finished.connect(self.audio_worker.deleteLater)
+            self.active_workers.append(self.audio_worker) # Track it for clean shutdown
+            self.audio_worker.start()
+
+        # Reset for the next message and add a newline to the display
         self.current_response = ""
-        
-        # Add a newline to separate the next user message
         self.chat_display.append("")
-
-
 
     def closeEvent(self, event: QCloseEvent):
         """
@@ -574,6 +688,11 @@ class CharacterWindow(QWidget):
         self.character_name = self.profile_data.get('name', 'Unknown')
         self.emotion_map = self.profile_data.get('emotion_map', {})
         self.offset = None
+
+        # --- NEW: Memory Toggles ---
+        self.long_term_memory_enabled = True
+        self.short_term_memory_enabled = True
+        # --- END NEW ---
         
         # Set window properties for a frameless, circular, floating window
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
@@ -591,6 +710,29 @@ class CharacterWindow(QWidget):
         """Shows a context menu with options for the character window."""
         context_menu = QMenu(self)
         
+        # --- NEW: Open Chat Action ---
+        open_chat_action = QAction("Open Chat", self)
+        open_chat_action.triggered.connect(self.launch_chat_requested.emit)
+        context_menu.addAction(open_chat_action)
+        
+        context_menu.addSeparator()
+        
+        # --- NEW: Memory Toggle Actions ---
+        long_term_action = QAction("Enable Core Memories", self)
+        long_term_action.setCheckable(True)
+        long_term_action.setChecked(self.long_term_memory_enabled)
+        long_term_action.toggled.connect(self.toggle_long_term_memory)
+        context_menu.addAction(long_term_action)
+
+        short_term_action = QAction("Enable Chat History", self)
+        short_term_action.setCheckable(True)
+        short_term_action.setChecked(self.short_term_memory_enabled)
+        short_term_action.toggled.connect(self.toggle_short_term_memory)
+        context_menu.addAction(short_term_action)
+
+        context_menu.addSeparator()
+        # --- END NEW ---
+
         edit_core_action = QAction("Edit Core Memories", self)
         edit_core_action.triggered.connect(self.edit_core_memories)
         context_menu.addAction(edit_core_action)
@@ -607,9 +749,25 @@ class CharacterWindow(QWidget):
         
         context_menu.exec(self.mapToGlobal(pos))
 
+    # --- NEW: Toggle Handlers ---
+    def toggle_long_term_memory(self, checked):
+        self.long_term_memory_enabled = checked
+        print(f"Core Memories {'Enabled' if checked else 'Disabled'}")
+
+    def toggle_short_term_memory(self, checked):
+        self.short_term_memory_enabled = checked
+        print(f"Chat History {'Enabled' if checked else 'Disabled'}")
+    # --- END NEW ---
+
     def edit_core_memories(self):
         """Placeholder for opening the core memory editor."""
-        print(f"TODO: Open core memory editor for {self.character_name}")
+        core_memory_file = os.path.join(
+            PROFILES_DIR, 
+            self.character_name.lower(), 
+            f"{self.character_name.lower()}_core_memories.json"
+        )
+        self.editor = CoreMemoryEditor(core_memory_file, self.character_name)
+        self.editor.show()
 
     def view_chat_history(self):
         """Opens the character's history JSON file in the default text editor."""

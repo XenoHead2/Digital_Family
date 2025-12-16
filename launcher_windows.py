@@ -6,7 +6,7 @@ import base64
 import re
 import speech_recognition as sr
 import threading
-from elevenlabs_tts import speak_text
+from piper_tts import speak_text
 from datetime import datetime
 from PyQt6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout, QTextEdit,
@@ -239,6 +239,7 @@ class ProfileCreatorWindow(QWidget):
         self.dislikes_input = QLineEdit()
         self.extra_info_input = QTextEdit()
         self.default_instructions_input = QTextEdit()
+        self.tts_voice_model_input = QLineEdit()
         form_layout.addRow("Name:", self.name_input)
         form_layout.addRow("What they call you:", self.user_name_input)
         form_layout.addRow("Gender:", self.gender_input)
@@ -250,6 +251,8 @@ class ProfileCreatorWindow(QWidget):
         form_layout.addRow(QLabel("--- Personality ---"))
         form_layout.addRow("Likes:", self.likes_input)
         form_layout.addRow("Dislikes:", self.dislikes_input)
+        form_layout.addRow(QLabel("--- Voice ---"))
+        form_layout.addRow("TTS Voice Model:", self.tts_voice_model_input)
         main_layout.addLayout(form_layout)
         main_layout.addWidget(QLabel("Extra Info / Backstory:"))
         main_layout.addWidget(self.extra_info_input)
@@ -290,6 +293,9 @@ class ProfileCreatorWindow(QWidget):
         self.extra_info_input.setPlainText(data.get("extra_info", ""))
         self.default_instructions_input.setPlainText(
             data.get("default_instructions", "")
+        )
+        self.tts_voice_model_input.setText(
+            data.get("tts_voice_model", "en_US-ljspeech-high.onnx")
         )
         self.emotion_map = data.get("emotion_map", {})
         self.default_emotion = data.get("default_emotion", "")
@@ -356,7 +362,8 @@ class ProfileCreatorWindow(QWidget):
                 self.default_instructions_input.toPlainText().strip()
             ),
             "emotion_map": self.emotion_map,
-            "default_emotion": self.default_emotion
+            "default_emotion": self.default_emotion,
+            "tts_voice_model": self.tts_voice_model_input.text().strip()
         }
         
         # Corrected: Save the JSON inside the character's folder

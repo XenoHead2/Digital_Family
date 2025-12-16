@@ -24,9 +24,16 @@ class ChatWorker(QThread):
             for msg in self.conversation_history:
                 if msg.get('role') in ['system', 'user', 'assistant']:
                     content = msg.get('content', '')
+                    # --- NEW: Handle vision-style content for non-vision models ---
                     if isinstance(content, list):
-                        text_parts = [item['text'] for item in content if isinstance(item, dict) and item.get('type') == 'text']
-                        content = ' '.join(text_parts)
+                        # Reconstruct a text-only version of the content
+                        text_parts = []
+                        for item in content:
+                            if item.get('type') == 'text':
+                                text_parts.append(item['text'])
+                            elif item.get('type') == 'image_url':
+                                text_parts.append("[user sent an image]")
+                        content = ' '.join(text_parts).strip()
                     messages.append({'role': msg['role'], 'content': content})
             
             data = {
@@ -41,7 +48,7 @@ class ChatWorker(QThread):
             print(f"--- ChatWorker: Prompt length: {len(json.dumps(data['messages']))} characters ---")
 
             
-            with requests.post('http://localhost:11434/api/chat', json=data, timeout=120, stream=True) as response:
+            with requests.post('http://localhost:11434/api/chat', json=data, timeout=600, stream=True) as response:
                 print(f"--- ChatWorker: Received status code {response.status_code} ---")
                 if response.status_code == 200:
                     for line in response.iter_lines():
@@ -79,40 +86,34 @@ class ImageDescriptionWorker(QThread):
     def run(self):
         """Generate image description in the background thread."""
         try:
-            # Placeholder for actual image description API call
-            # You'll need to implement your preferred vision API here
-            description = "Image description unavailable. Please configure your vision API in llm_workers.py"
-            
-            # Example API call structure (you'll need to adapt this to your vision API provider):
-            # api_key = os.getenv('OPENAI_API_KEY')  # or whatever your API key env var is
-            # headers = {
-            #     'Authorization': f'Bearer {api_key}',
-            #     'Content-Type': 'application/json'
-            # }
-            # data = {
-            #     'model': 'gpt-4-vision-preview',
-            #     'messages': [{
-            #         'role': 'user',
-            #         'content': [{
-            #             'type': 'text',
-            #             'text': 'Describe this image in detail.'
-            #         }, {
-            #             'type': 'image_url',
-            #             'image_url': {
-            #                 'url': f'data:image/jpeg;base64,{self.base64_image}'
-            #             }
-            #         }]
-            #     }],
-            #     'max_tokens': 200
-            # }
-            # response = requests.post('https://api.openai.com/v1/chat/completions',
-            #                         headers=headers, json=data)
-            # if response.status_code == 200:
-            #     result = response.json()
-            #     description = result['choices'][0]['message']['content']
-            # else:
-            #     description = f"API Error: {response.status_code}"
-            
-            self.description_ready.emit(self.message_id, description)
+            # --- NEW: Implement image description using Ollama ---
+            # This uses a vision-capable model like 'llava'
+            data = {
+                "model": "llava", # Make sure you have a vision model like 'llava' pulled in Ollama
+                "prompt": "Describe this image in one brief sentence from the user's point of view, as if they are showing it to someone.",
+                "images": [self.base64_image],
+                "stream": False # We want the full description at once
+            }
+
+            print("--- ImageDescriptionWorker: Sending request to Ollama for image description ---")
+            response = requests.post('http://localhost:11434/api/generate', json=data, timeout=600)
+
+            if response.status_code == 200:
+                result = response.json()
+                description = result.get('response', 'Could not get a description.').strip()
+                print(f"--- ImageDescriptionWorker: Received description: {description} ---")
+                self.description_ready.emit(self.message_id, description)
+            else:
+                error_text = response.text
+                print(f"--- ImageDescriptionWorker: Error from Ollama API: {response.status_code} - {error_text} ---")
+                # Check for a common error: model not found
+                if "model" in error_text and "not found" in error_text:
+                    description = "Vision model not found. Please run 'ollama pull llava' and try again."
+                else:
+                    description = f"API Error: {response.status_code}"
+                self.description_ready.emit(self.message_id, description)
+
         except Exception as e:
-            self.description_ready.emit(self.message_id, f"Error: {str(e)}")
+            error_message = f"Error generating image description: {str(e)}"
+            print(f"--- ImageDescriptionWorker: CRITICAL ERROR: {error_message} ---")
+            self.description_ready.emit(self.message_id, error_message)

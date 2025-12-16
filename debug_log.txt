@@ -282,3 +282,299 @@
 [2025-12-15T00:22:41.886054]     Message 18: role=user, content_len=160
 [2025-12-15T00:22:41.887129]     Message 19: role=assistant, content_len=249
 [2025-12-15T00:22:41.888210]     Message 20: role=user, content_len=42
+[2025-12-15T23:41:38.794702] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-15T23:41:38.806696] --- ChatWindow.load_memory: Base prompt length: 1345 chars ---
+[2025-12-15T23:41:38.820892] --- ChatWindow.load_memory: Loaded 1 core memories from file. ---
+[2025-12-15T23:41:38.822574] --- ChatWindow.load_memory: Core memory content length: 179 chars ---
+[2025-12-15T23:41:38.829074] --- ChatWindow.load_memory: Loaded 20 chat messages from file. ---
+[2025-12-15T23:41:38.831076] --- ChatWindow.load_memory: Final initial history length: 21 messages. ---
+[2025-12-15T23:41:59.445579] --- ChatWindow.send_message: History for worker has 21 messages. ---
+[2025-12-15T23:41:59.446948]     Message 0: role=system, content_len=1595
+[2025-12-15T23:41:59.447879]     Message 1: role=assistant, content_len=473
+[2025-12-15T23:41:59.448407]     Message 2: role=user, content_len=127
+[2025-12-15T23:41:59.449392]     Message 3: role=assistant, content_len=437
+[2025-12-15T23:41:59.451394]     Message 4: role=user, content_len=92
+[2025-12-15T23:41:59.452389]     Message 5: role=assistant, content_len=568
+[2025-12-15T23:41:59.453389]     Message 6: role=user, content_len=90
+[2025-12-15T23:41:59.454390]     Message 7: role=assistant, content_len=441
+[2025-12-15T23:41:59.455388]     Message 8: role=user, content_len=52
+[2025-12-15T23:41:59.456389]     Message 9: role=assistant, content_len=201
+[2025-12-15T23:41:59.457386]     Message 10: role=user, content_len=47
+[2025-12-15T23:41:59.458978]     Message 11: role=assistant, content_len=429
+[2025-12-15T23:41:59.459497]     Message 12: role=user, content_len=74
+[2025-12-15T23:41:59.461135]     Message 13: role=assistant, content_len=348
+[2025-12-15T23:41:59.461837]     Message 14: role=user, content_len=70
+[2025-12-15T23:41:59.463058]     Message 15: role=assistant, content_len=306
+[2025-12-15T23:41:59.463935]     Message 16: role=user, content_len=24
+[2025-12-15T23:41:59.465081]     Message 17: role=assistant, content_len=505
+[2025-12-15T23:41:59.466076]     Message 18: role=user, content_len=72
+[2025-12-15T23:41:59.467076]     Message 19: role=user, content_len=72
+[2025-12-15T23:41:59.468074]     Message 20: role=user, content_len=31
+[2025-12-15T23:44:55.364749] --- ChatWindow.send_message: History for worker has 21 messages. ---
+[2025-12-15T23:44:55.401727]     Message 0: role=system, content_len=1595
+[2025-12-15T23:44:55.402727]     Message 1: role=assistant, content_len=437
+[2025-12-15T23:44:55.402727]     Message 2: role=user, content_len=92
+[2025-12-15T23:44:55.403726]     Message 3: role=assistant, content_len=568
+[2025-12-15T23:44:55.404725]     Message 4: role=user, content_len=90
+[2025-12-15T23:44:55.405724]     Message 5: role=assistant, content_len=441
+[2025-12-15T23:44:55.406724]     Message 6: role=user, content_len=52
+[2025-12-15T23:44:55.407723]     Message 7: role=assistant, content_len=201
+[2025-12-15T23:44:55.408723]     Message 8: role=user, content_len=47
+[2025-12-15T23:44:55.409722]     Message 9: role=assistant, content_len=429
+[2025-12-15T23:44:55.410721]     Message 10: role=user, content_len=74
+[2025-12-15T23:44:55.411721]     Message 11: role=assistant, content_len=348
+[2025-12-15T23:44:55.412721]     Message 12: role=user, content_len=70
+[2025-12-15T23:44:55.413719]     Message 13: role=assistant, content_len=306
+[2025-12-15T23:44:55.413719]     Message 14: role=user, content_len=24
+[2025-12-15T23:44:55.414719]     Message 15: role=assistant, content_len=505
+[2025-12-15T23:44:55.415718]     Message 16: role=user, content_len=72
+[2025-12-15T23:44:55.416718]     Message 17: role=user, content_len=72
+[2025-12-15T23:44:55.417718]     Message 18: role=user, content_len=31
+[2025-12-15T23:44:55.418717]     Message 19: role=assistant, content_len=120
+[2025-12-15T23:44:55.419716]     Message 20: role=user, content_len=5
+[2025-12-15T23:55:07.109219] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-15T23:55:07.110213] --- ChatWindow.load_memory: Base prompt length: 237 chars ---
+[2025-12-15T23:55:07.111790] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-15T23:55:07.137509] --- ChatWindow.load_memory: Loaded 20 chat messages from file. ---
+[2025-12-15T23:55:07.139144] --- ChatWindow.load_memory: Final initial history length: 21 messages. ---
+[2025-12-15T23:55:14.283172] --- ChatWindow.send_message: History for worker has 21 messages. ---
+[2025-12-15T23:55:14.284763]     Message 0: role=system, content_len=335
+[2025-12-15T23:55:14.286193]     Message 1: role=user, content_len=40
+[2025-12-15T23:55:14.287074]     Message 2: role=assistant, content_len=36
+[2025-12-15T23:55:14.288130]     Message 3: role=user, content_len=60
+[2025-12-15T23:55:14.288829]     Message 4: role=assistant, content_len=56
+[2025-12-15T23:55:14.289912]     Message 5: role=user, content_len=43
+[2025-12-15T23:55:14.290832]     Message 6: role=assistant, content_len=44
+[2025-12-15T23:55:14.291998]     Message 7: role=user, content_len=19
+[2025-12-15T23:55:14.292786]     Message 8: role=user, content_len=9
+[2025-12-15T23:55:14.294025]     Message 9: role=assistant, content_len=92
+[2025-12-15T23:55:14.294768]     Message 10: role=user, content_len=25
+[2025-12-15T23:55:14.295837]     Message 11: role=assistant, content_len=263
+[2025-12-15T23:55:14.296935]     Message 12: role=user, content_len=127
+[2025-12-15T23:55:14.297995]     Message 13: role=assistant, content_len=240
+[2025-12-15T23:55:14.298924]     Message 14: role=user, content_len=116
+[2025-12-15T23:55:14.300127]     Message 15: role=assistant, content_len=186
+[2025-12-15T23:55:14.301268]     Message 16: role=user, content_len=160
+[2025-12-15T23:55:14.302122]     Message 17: role=assistant, content_len=249
+[2025-12-15T23:55:14.302925]     Message 18: role=user, content_len=42
+[2025-12-15T23:55:14.303998]     Message 19: role=assistant, content_len=120
+[2025-12-15T23:55:14.304788]     Message 20: role=user, content_len=16
+[2025-12-16T00:03:59.458347] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-16T00:03:59.460422] --- ChatWindow.load_memory: Base prompt length: 237 chars ---
+[2025-12-16T00:03:59.461417] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-16T00:03:59.486917] --- ChatWindow.load_memory: Loaded 20 chat messages from file. ---
+[2025-12-16T00:03:59.488200] --- ChatWindow.load_memory: Final initial history length: 21 messages. ---
+[2025-12-16T00:04:06.369286] --- ChatWindow.send_message: History for worker has 21 messages. ---
+[2025-12-16T00:04:06.370554]     Message 0: role=system, content_len=335
+[2025-12-16T00:04:06.371617]     Message 1: role=user, content_len=60
+[2025-12-16T00:04:06.372634]     Message 2: role=assistant, content_len=56
+[2025-12-16T00:04:06.373680]     Message 3: role=user, content_len=43
+[2025-12-16T00:04:06.374869]     Message 4: role=assistant, content_len=44
+[2025-12-16T00:04:06.375525]     Message 5: role=user, content_len=19
+[2025-12-16T00:04:06.376592]     Message 6: role=user, content_len=9
+[2025-12-16T00:04:06.377329]     Message 7: role=assistant, content_len=92
+[2025-12-16T00:04:06.378215]     Message 8: role=user, content_len=25
+[2025-12-16T00:04:06.378999]     Message 9: role=assistant, content_len=263
+[2025-12-16T00:04:06.379918]     Message 10: role=user, content_len=127
+[2025-12-16T00:04:06.380664]     Message 11: role=assistant, content_len=240
+[2025-12-16T00:04:06.381783]     Message 12: role=user, content_len=116
+[2025-12-16T00:04:06.382298]     Message 13: role=assistant, content_len=186
+[2025-12-16T00:04:06.383293]     Message 14: role=user, content_len=160
+[2025-12-16T00:04:06.384292]     Message 15: role=assistant, content_len=249
+[2025-12-16T00:04:06.385292]     Message 16: role=user, content_len=42
+[2025-12-16T00:04:06.386291]     Message 17: role=assistant, content_len=120
+[2025-12-16T00:04:06.387653]     Message 18: role=user, content_len=16
+[2025-12-16T00:04:06.388174]     Message 19: role=assistant, content_len=120
+[2025-12-16T00:04:06.389708]     Message 20: role=user, content_len=8
+[2025-12-16T00:11:37.355169] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-16T00:11:37.356169] --- ChatWindow.load_memory: Persona summary length: 166 chars ---
+[2025-12-16T00:11:37.357331] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-16T00:11:37.359501] --- ChatWindow.load_memory: Loaded 20 chat messages from file. ---
+[2025-12-16T00:11:37.361091] --- ChatWindow.load_memory: Final initial history length: 21 messages. ---
+[2025-12-16T00:11:44.153259] --- ChatWindow.send_message: History for worker has 21 messages. ---
+[2025-12-16T00:11:44.154751]     Message 0: role=system, content_len=264
+[2025-12-16T00:11:44.155655]     Message 1: role=user, content_len=43
+[2025-12-16T00:11:44.156650]     Message 2: role=assistant, content_len=44
+[2025-12-16T00:11:44.157503]     Message 3: role=user, content_len=19
+[2025-12-16T00:11:44.158595]     Message 4: role=user, content_len=9
+[2025-12-16T00:11:44.159346]     Message 5: role=assistant, content_len=92
+[2025-12-16T00:11:44.160404]     Message 6: role=user, content_len=25
+[2025-12-16T00:11:44.161444]     Message 7: role=assistant, content_len=263
+[2025-12-16T00:11:44.162558]     Message 8: role=user, content_len=127
+[2025-12-16T00:11:44.163554]     Message 9: role=assistant, content_len=240
+[2025-12-16T00:11:44.164555]     Message 10: role=user, content_len=116
+[2025-12-16T00:11:44.165800]     Message 11: role=assistant, content_len=186
+[2025-12-16T00:11:44.166407]     Message 12: role=user, content_len=160
+[2025-12-16T00:11:44.167249]     Message 13: role=assistant, content_len=249
+[2025-12-16T00:11:44.168364]     Message 14: role=user, content_len=42
+[2025-12-16T00:11:44.169109]     Message 15: role=assistant, content_len=120
+[2025-12-16T00:11:44.169965]     Message 16: role=user, content_len=16
+[2025-12-16T00:11:44.171033]     Message 17: role=assistant, content_len=120
+[2025-12-16T00:11:44.171995]     Message 18: role=user, content_len=8
+[2025-12-16T00:11:44.172840]     Message 19: role=assistant, content_len=109
+[2025-12-16T00:11:44.174035]     Message 20: role=user, content_len=16
+[2025-12-16T00:14:54.031492] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-16T00:14:54.033490] --- ChatWindow.load_memory: Persona summary length: 166 chars ---
+[2025-12-16T00:14:54.034490] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-16T00:14:54.059632] --- ChatWindow.load_memory: Loaded 20 chat messages from file. ---
+[2025-12-16T00:14:54.060613] --- ChatWindow.load_memory: Final initial history length: 21 messages. ---
+[2025-12-16T00:15:00.890030] --- ChatWindow.send_message: History for worker has 21 messages. ---
+[2025-12-16T00:15:00.891663]     Message 0: role=system, content_len=264
+[2025-12-16T00:15:00.892555]     Message 1: role=assistant, content_len=44
+[2025-12-16T00:15:00.893693]     Message 2: role=user, content_len=19
+[2025-12-16T00:15:00.894525]     Message 3: role=user, content_len=9
+[2025-12-16T00:15:00.895720]     Message 4: role=assistant, content_len=92
+[2025-12-16T00:15:00.896689]     Message 5: role=user, content_len=25
+[2025-12-16T00:15:00.897741]     Message 6: role=assistant, content_len=263
+[2025-12-16T00:15:00.898802]     Message 7: role=user, content_len=127
+[2025-12-16T00:15:00.899839]     Message 8: role=assistant, content_len=240
+[2025-12-16T00:15:00.900944]     Message 9: role=user, content_len=116
+[2025-12-16T00:15:00.901809]     Message 10: role=assistant, content_len=186
+[2025-12-16T00:15:00.902907]     Message 11: role=user, content_len=160
+[2025-12-16T00:15:00.903932]     Message 12: role=assistant, content_len=249
+[2025-12-16T00:15:00.904465]     Message 13: role=user, content_len=42
+[2025-12-16T00:15:00.905563]     Message 14: role=assistant, content_len=120
+[2025-12-16T00:15:00.906813]     Message 15: role=user, content_len=16
+[2025-12-16T00:15:00.907835]     Message 16: role=assistant, content_len=120
+[2025-12-16T00:15:00.908900]     Message 17: role=user, content_len=8
+[2025-12-16T00:15:00.909886]     Message 18: role=assistant, content_len=109
+[2025-12-16T00:15:00.910881]     Message 19: role=user, content_len=16
+[2025-12-16T00:15:00.911953]     Message 20: role=user, content_len=10
+[2025-12-16T00:18:21.543116] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-16T00:18:21.544560] --- ChatWindow.load_memory: Persona summary length: 893 chars ---
+[2025-12-16T00:18:21.545437] --- ChatWindow.load_memory: Long-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:18:21.546420] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-16T00:18:21.547419] --- ChatWindow.load_memory: Short-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:18:21.548371] --- ChatWindow.load_memory: Final initial history length: 1 messages. ---
+[2025-12-16T00:18:28.596003] --- ChatWindow.send_message: History for worker has 1 messages. ---
+[2025-12-16T00:18:28.597002]     Message 0: role=user, content_len=13
+[2025-12-16T00:18:51.921865] --- ChatWindow.send_message: History for worker has 1 messages. ---
+[2025-12-16T00:18:51.923627]     Message 0: role=user, content_len=29
+[2025-12-16T00:20:50.053111] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-16T00:20:50.055400] --- ChatWindow.load_memory: Persona summary length: 893 chars ---
+[2025-12-16T00:20:50.056437] --- ChatWindow.load_memory: Long-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:20:50.057467] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-16T00:20:50.058175] --- ChatWindow.load_memory: Short-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:20:50.059294] --- ChatWindow.load_memory: Final initial history length: 1 messages. ---
+[2025-12-16T00:20:57.630804] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T00:20:57.631804]     Message 0: role=system, content_len=991
+[2025-12-16T00:20:57.633802]     Message 1: role=user, content_len=7
+[2025-12-16T00:22:54.057539] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T00:22:54.058538]     Message 0: role=system, content_len=991
+[2025-12-16T00:22:54.059538]     Message 1: role=user, content_len=32
+[2025-12-16T00:23:52.584802] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T00:23:52.585808]     Message 0: role=system, content_len=991
+[2025-12-16T00:23:52.586917]     Message 1: role=user, content_len=76
+[2025-12-16T00:24:55.003572] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-16T00:24:55.005571] --- ChatWindow.load_memory: Persona summary length: 963 chars ---
+[2025-12-16T00:24:55.006570] --- ChatWindow.load_memory: Long-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:24:55.007569] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-16T00:24:55.008571] --- ChatWindow.load_memory: Short-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:24:55.009568] --- ChatWindow.load_memory: Final initial history length: 1 messages. ---
+[2025-12-16T00:25:02.838652] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T00:25:02.839651]     Message 0: role=system, content_len=1061
+[2025-12-16T00:25:02.840652]     Message 1: role=user, content_len=24
+[2025-12-16T00:28:15.608803] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-16T00:28:15.610802] --- ChatWindow.load_memory: Persona summary length: 1371 chars ---
+[2025-12-16T00:28:15.610802] --- ChatWindow.load_memory: Long-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:28:15.611802] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-16T00:28:15.613587] --- ChatWindow.load_memory: Short-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:28:15.614106] --- ChatWindow.load_memory: Final initial history length: 1 messages. ---
+[2025-12-16T00:28:35.440617] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T00:28:35.441747]     Message 0: role=system, content_len=1469
+[2025-12-16T00:28:35.442855]     Message 1: role=user, content_len=15
+[2025-12-16T00:30:46.274772] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T00:30:46.275900]     Message 0: role=system, content_len=1469
+[2025-12-16T00:30:46.276854]     Message 1: role=user, content_len=16
+[2025-12-16T00:34:54.711987] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-16T00:34:54.713903] --- ChatWindow.load_memory: Persona summary length: 243 chars ---
+[2025-12-16T00:34:54.715237] --- ChatWindow.load_memory: Long-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:34:54.716535] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-16T00:34:54.717608] --- ChatWindow.load_memory: Short-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:34:54.718131] --- ChatWindow.load_memory: Final initial history length: 1 messages. ---
+[2025-12-16T00:35:04.713656] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T00:35:04.715191]     Message 0: role=system, content_len=341
+[2025-12-16T00:35:04.716195]     Message 1: role=user, content_len=16
+[2025-12-16T00:37:00.351426] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-16T00:37:00.352423] --- ChatWindow.load_memory: Persona summary length: 963 chars ---
+[2025-12-16T00:37:00.353422] --- ChatWindow.load_memory: Long-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:37:00.354421] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-16T00:37:00.355421] --- ChatWindow.load_memory: Short-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:37:00.356984] --- ChatWindow.load_memory: Final initial history length: 1 messages. ---
+[2025-12-16T00:37:11.397063] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T00:37:11.398142]     Message 0: role=system, content_len=1061
+[2025-12-16T00:37:11.399139]     Message 1: role=user, content_len=24
+[2025-12-16T00:39:01.831820] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T00:39:01.832819]     Message 0: role=system, content_len=1061
+[2025-12-16T00:39:01.834396]     Message 1: role=user, content_len=79
+[2025-12-16T00:40:24.707709] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T00:40:24.708709]     Message 0: role=system, content_len=1061
+[2025-12-16T00:40:24.709709]     Message 1: role=user, content_len=105
+[2025-12-16T00:41:31.598143] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-16T00:41:31.600142] --- ChatWindow.load_memory: Persona summary length: 243 chars ---
+[2025-12-16T00:41:31.601256] --- ChatWindow.load_memory: Long-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:41:31.601776] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-16T00:41:31.603767] --- ChatWindow.load_memory: Short-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:41:31.604766] --- ChatWindow.load_memory: Final initial history length: 1 messages. ---
+[2025-12-16T00:41:50.502922] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T00:41:50.503922]     Message 0: role=system, content_len=341
+[2025-12-16T00:41:50.505757]     Message 1: role=user, content_len=19
+[2025-12-16T00:42:26.159545] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T00:42:26.161525]     Message 0: role=system, content_len=341
+[2025-12-16T00:42:26.162044]     Message 1: role=user, content_len=32
+[2025-12-16T00:42:57.634620] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-16T00:42:57.635936] --- ChatWindow.load_memory: Persona summary length: 970 chars ---
+[2025-12-16T00:42:57.636784] --- ChatWindow.load_memory: Long-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:42:57.637569] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-16T00:42:57.638714] --- ChatWindow.load_memory: Short-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:42:57.639902] --- ChatWindow.load_memory: Final initial history length: 1 messages. ---
+[2025-12-16T00:43:08.677383] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T00:43:08.678382]     Message 0: role=system, content_len=1068
+[2025-12-16T00:43:08.679569]     Message 1: role=user, content_len=25
+[2025-12-16T00:44:26.718996] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T00:44:26.720996]     Message 0: role=system, content_len=1068
+[2025-12-16T00:44:26.753974]     Message 1: role=user, content_len=44
+[2025-12-16T00:45:11.986744] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-16T00:45:11.988743] --- ChatWindow.load_memory: Persona summary length: 1371 chars ---
+[2025-12-16T00:45:11.989743] --- ChatWindow.load_memory: Long-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:45:11.990742] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-16T00:45:11.991741] --- ChatWindow.load_memory: Short-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T00:45:11.992740] --- ChatWindow.load_memory: Final initial history length: 1 messages. ---
+[2025-12-16T00:45:27.541041] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T00:45:27.542040]     Message 0: role=system, content_len=1469
+[2025-12-16T00:45:27.543040]     Message 1: role=user, content_len=26
+[2025-12-16T00:59:22.480825] [TTS] --- Starting standalone TTS test. ---
+[2025-12-16T00:59:22.582214] [TTS] Error loading Piper voice: Expecting value: line 1 column 1 (char 0)
+[2025-12-16T00:59:22.598203] [TTS] --- Standalone TTS test completed successfully. ---
+[2025-12-16T01:07:06.030100] [TTS] --- Starting standalone TTS test. ---
+[2025-12-16T01:07:15.271360] [TTS] Synthesis/Playback Error: 'PiperVoice' object has no attribute 'synthesize_stream_raw'
+[2025-12-16T01:07:15.273073] [TTS] --- Standalone TTS test completed successfully. ---
+[2025-12-16T01:10:38.112831] [TTS] --- Starting standalone TTS test. ---
+[2025-12-16T01:10:47.221343] [TTS] Synthesis/Playback Error: 'PiperVoice' object has no attribute 'synthesize_stream'
+[2025-12-16T01:10:47.223365] [TTS] --- Standalone TTS test completed successfully. ---
+[2025-12-16T01:12:37.997104] [TTS] --- Starting standalone TTS test. ---
+[2025-12-16T01:12:53.512325] [TTS] Synthesis/Playback Error: 'PiperVoice' object has no attribute 'synthesize_stream'
+[2025-12-16T01:12:53.514598] [TTS] --- Standalone TTS test completed successfully. ---
+[2025-12-16T01:19:02.853803] [TTS] --- Starting standalone TTS test. ---
+[2025-12-16T01:19:14.334123] [TTS] Synthesis/Playback Error: 'PiperVoice' object has no attribute 'synthesize_stream'
+[2025-12-16T01:19:14.455675] [TTS] --- Standalone TTS test completed successfully. ---
+[2025-12-16T01:19:34.152950] [TTS] --- Starting standalone TTS test. ---
+[2025-12-16T01:19:45.501045] [TTS] Synthesis/Playback Error: Unknown WAVE format
+[2025-12-16T01:19:45.502812] [TTS] --- Standalone TTS test completed successfully. ---
+[2025-12-16T01:27:55.428339] [TTS] --- Starting standalone TTS test. ---
+[2025-12-16T01:29:07.163470] [TTS] --- Standalone TTS test completed successfully. ---
+[2025-12-16T01:40:26.481538] --- ChatWindow.load_memory: Building system prompt... ---
+[2025-12-16T01:40:26.498528] --- ChatWindow.load_memory: Persona summary length: 970 chars ---
+[2025-12-16T01:40:26.500436] --- ChatWindow.load_memory: Long-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T01:40:26.501038] --- ChatWindow.load_memory: Core memory content length: 27 chars ---
+[2025-12-16T01:40:26.502363] --- ChatWindow.load_memory: Short-term memory is disabled or file not found. Skipping. ---
+[2025-12-16T01:40:26.503478] --- ChatWindow.load_memory: Final initial history length: 1 messages. ---
+[2025-12-16T01:40:38.538723] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T01:40:38.539779]     Message 0: role=system, content_len=1068
+[2025-12-16T01:40:38.540814]     Message 1: role=user, content_len=18
+[2025-12-16T01:42:02.387315] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T01:42:02.388314]     Message 0: role=system, content_len=1068
+[2025-12-16T01:42:02.389313]     Message 1: role=user, content_len=21
+[2025-12-16T01:42:32.385858] --- ChatWindow.send_message: History for worker has 2 messages. ---
+[2025-12-16T01:42:32.387856]     Message 0: role=system, content_len=1068
+[2025-12-16T01:42:32.388856]     Message 1: role=user, content_len=9
